@@ -5,7 +5,8 @@ factorization models.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import pdb;
+import pdb
+
 
 class ScaledEmbedding(nn.Embedding):
     """
@@ -111,13 +112,10 @@ class MultiTaskNet(nn.Module):
             self.item_embeddings_regression = self.item_embeddings_factorization
             # Reset parameters of regression embeddings
 
-
         self.user_biases = ZeroEmbedding(num_users, 1, sparse=sparse)
         self.item_biases = ZeroEmbedding(num_items, 1, sparse=sparse)
 
         self.regression = nn.Sequential(
-            nn.Linear(3 * embedding_dim, layer_sizes[0]),
-            nn.ReLU(),
             nn.Linear(layer_sizes[0], layer_sizes[1]),
             nn.ReLU(),
             nn.Linear(layer_sizes[1], 1),
@@ -161,10 +159,7 @@ class MultiTaskNet(nn.Module):
         interaction = (user_embedding_factorization * item_embedding_factorization).sum(
             dim=1
         )
-        prediction = interaction + user_bias + item_bias
-
-        # Apply the sigmoid function to get the probability p_ij
-        predictions = torch.sigmoid(prediction)
+        predictions = interaction + user_bias + item_bias
 
         # Get the embeddings for regression task
         user_embedding_regression = self.user_embeddings_regression(user_ids)
