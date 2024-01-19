@@ -176,8 +176,8 @@ class ProtoNet:
 
             query_loss = F.cross_entropy(-query_prototype_distances, labels_query) # (1)
             loss_batch.append(query_loss)
-            accuracy_support_batch.append(util.score(-query_prototype_distances, labels_query))
-            accuracy_query_batch.append(util.score(-support_prototype_distances, labels_support))
+            accuracy_query_batch.append(util.score(-query_prototype_distances, labels_query))
+            accuracy_support_batch.append(util.score(-support_prototype_distances, labels_support))
             # pdb.set_trace()
 
             # compute prototypes without tracking gradients
