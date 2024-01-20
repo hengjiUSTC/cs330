@@ -163,6 +163,8 @@ def get_loss(unnormalized_logits: torch.Tensor, targets: torch.Tensor) -> torch.
         elements (and sequence timesteps, if applicable)
     """
     loss: torch.Tensor = None
+    logits = logits.to(DEVICE)
+    targets = targets.to(DEVICE)
     if unnormalized_logits.dim() == 2:
         # This is the classification case.
         # Complete this for Q0.1
@@ -213,6 +215,8 @@ def get_acc(unnormalized_logits: torch.Tensor, targets: torch.Tensor) -> torch.T
         elements (and sequence timesteps, if applicable)
     """
     accuracy: torch.Tensor = None
+    logits = logits.to(DEVICE)
+    targets = targets.to(DEVICE)
     if unnormalized_logits.dim() == 2:
         # This is the classification case.
         # Complete this for Q0.1
