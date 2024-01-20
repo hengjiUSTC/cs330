@@ -195,6 +195,7 @@ def do_sample(
     ### START CODE HERE ###
     with torch.inference_mode():
         for _ in range(max_tokens):
+            # pdb.set_trace()
             outputs = model(input_ids)
             logits = outputs.logits
             next_token_logits = logits[0, -1, :]
@@ -202,7 +203,7 @@ def do_sample(
             if next_token in stop_tokens:
                 break
             sampled_tokens.append(next_token)
-            input_ids = torch.cat((input_ids, next_token.view(1,-1)), dim=1)
+            input_ids = torch.cat((input_ids, next_token.view(1,-1)), dim=-1)
     ### END CODE HERE ###
     return sampled_tokens
 
@@ -271,6 +272,7 @@ def run_icl(
                                 prompt_mode=prompt_mode)
                             tokens = tokenizer.encode(prompt, return_tensors='pt')
                             tokens = tokens.to(DEVICE)
+                            # pdb.set_trace()
                             sampled_tokens = do_sample(model, tokens, stop_tokens, max_tokens)
                             decoded_prediction = tokenizer.decode(sampled_tokens, skip_special_tokens=True)
 
