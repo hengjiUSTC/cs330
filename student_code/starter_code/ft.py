@@ -366,7 +366,7 @@ def tokenize_gpt2_batch(
     tokenized_outputs['labels'] = labels
 
     # YOUR CODE HERE, complete for Q2.2e
-    return tokenized_outputs
+    return tokenized_outputs.to(DEVICE)
 
 
 def add_prefixes(
